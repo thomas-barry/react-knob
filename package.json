@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "React Knob",
   "main": "index.js",
+  "public": true,
   "files": [
      "/src"
   ],
