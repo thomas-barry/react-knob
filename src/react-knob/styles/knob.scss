@@ -1,0 +1,143 @@
+$knob-colour: #181818;
+$light-colour: #a8d8f8;
+
+@mixin transform($arguments...) {
+    -webkit-transform: $arguments;
+    -moz-transform: $arguments;
+    -o-transform: $arguments;
+    -ms-transform: $arguments;
+    transform: $arguments;
+}
+
+@mixin box-shadow($arguments...) {
+    -webkit-box-shadow: $arguments;
+    -moz-box-shadow: $arguments;
+    box-shadow: $arguments;
+}
+
+@mixin transition($arguments...) {
+    -webkit-transition: $arguments;
+    -moz-transition: $arguments;
+    -o-transition: $arguments;
+    transition: $arguments;
+}
+
+@mixin gradient($color: #f5f5f5, $start: #eee, $stop: #fff) {
+    background: $color;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, $start), color-stop(1, $stop));
+    background: -ms-linear-gradient(bottom, $start, $stop);
+    background: -moz-linear-gradient(center bottom, $start 0%, $stop 100%);
+    background: -o-linear-gradient($stop, $start);
+}
+
+.knob-container {
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+    &:focus-visible {
+        .knob-focus-ring {
+            display: block;
+        }
+    }
+}
+
+.knob-focus-ring {
+    display: none;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    border: 1px solid darken($light-colour, 10%);
+}
+
+.knob-wheel {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+    background-color: grey;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: solid 0.25em darken($knob-colour, 4%);
+
+    @include gradient($knob-colour, lighten($knob-colour, 2%), darken($knob-colour, 2%));
+
+    @include box-shadow(
+        0 0.2em 0.1em 0.05em rgba(255, 255, 255, 0.1) inset,
+        0 -0.2em 0.1em 0.05em rgba(0, 0, 0, 0.5) inset,
+        0 0.5em 0.65em 0 rgba(0, 0, 0, 0.3)
+    );
+
+    .knob {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        z-index: 10;
+        @include transform(rotate(0deg));
+    }
+
+    .knob:before {
+        content: "";
+        position: absolute;
+        bottom: 19%;
+        left: 19%;
+        width: 3%;
+        height: 3%;
+        background-color: $light-colour;
+        border-radius: 50%;
+        @include box-shadow(0 0 0.4em 0 darken($light-colour, 10%));
+    }
+
+    .tick {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        overflow: visible;
+        @include transform(rotate(-135deg));
+
+        &:after {
+            content: "";
+            width: 0.08em;
+            height: 0.6em;
+            background-color: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            top: -1.5em;
+            left: 50%;
+            @include transition(all 180ms ease-out);
+        }
+
+        &.active {
+            &:after {
+                background-color: $light-colour;
+                @include box-shadow(0 0 0.3em 0.08em darken($light-colour, 10%));
+                @include transition(all 50ms ease-in);
+            }
+        }
+    }
+
+    .min,
+    .max {
+        display: block;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        font-size: 70%;
+        position: absolute;
+        opacity: 0.5;
+    }
+
+    .min {
+        bottom: 1em;
+        left: -2.5em;
+    }
+
+    .max {
+        bottom: 1em;
+        right: -2.5em;
+    }
+}
