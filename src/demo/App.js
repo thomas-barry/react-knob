@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import ReactKnob from './react-knob/ReactKnob'
+import ReactKnob from '../react-knob/ReactKnob'
 
 import './styles/index.scss'
 

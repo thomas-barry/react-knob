@@ -6,7 +6,7 @@ const webpack = require('webpack')
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/demo/index.js',
     output: {
         filename: 'bundle.[hash].js',
         path: path.resolve(__dirname, 'dist'),
@@ -16,7 +16,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './src/demo/index.html',
         }),
         isDevelopment && new webpack.HotModuleReplacementPlugin(),
         isDevelopment && new ReactRefreshWebpackPlugin(),

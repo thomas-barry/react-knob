@@ -1,38 +1,19 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const webpack = require('webpack')
-const isDevelopment = process.env.NODE_ENV !== 'production'
 
 module.exports = {
     mode: 'production',
     entry: './src/react-knob/ReactKnob.js',
     output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
-    resolve: {
-        modules: [__dirname, 'src', 'node_modules'],
-        extensions: ['*', '.js', '.jsx'],
+        path: path.resolve(__dirname, 'lib'),
+        filename: 'ReactKnob.js',
+        libraryTarget: 'commonjs2',
     },
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: require.resolve('babel-loader'),
-                        options: {
-                            plugins: [
-                                isDevelopment &&
-                                    require.resolve('react-refresh/babel'),
-                            ].filter(Boolean),
-                            cacheDirectory: true,
-                        },
-                    },
-                ],
+                use: 'babel-loader',
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -42,10 +23,27 @@ module.exports = {
                     'sass-loader',
                 ],
             },
-            {
-                test: /\.png|svg|jpg|gif$/,
-                use: ['file-loader'],
-            },
         ],
+    },
+    resolve: {
+        alias: {
+            'react': path.resolve(__dirname, './node_modules/react'),
+            'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+        }
+    },
+    externals: {
+        // Don't bundle react or react-dom
+        react: {
+            commonjs: 'react',
+            commonjs2: 'react',
+            amd: 'React',
+            root: 'React'
+        },
+        "react-dom": {
+            commonjs: 'react-dom',
+            commonjs2: 'react-dom',
+            amd: 'ReactDOM',
+            root: 'ReactDOM'
+        }
     },
 }

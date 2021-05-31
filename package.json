@@ -2,20 +2,19 @@
   "name": "@baldwinbarry/react-knob",
   "version": "0.0.4",
   "description": "React Knob",
-  "main": "index.js",
+  "author": "Thomas Barry",
+  "main": "./lib/ReactKnob.js",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "/dist"
+    "/lib"
   ],
   "scripts": {
     "start": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js"
   },
-  "keywords": [],
-  "author": "Thomas Barry",
-  "license": "MIT",
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -43,5 +42,6 @@
     "webpack": "^5.33.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
-  }
+  },
+  "dependencies": {}
 }
