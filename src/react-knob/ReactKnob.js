@@ -15,6 +15,7 @@ const ReactKnob = ({
     maxLabel = 'Max',
     ticks = 28,
     keyStepPct = 10,
+    className,
 }) => {
 
     const onWheel = e =>
@@ -35,13 +36,13 @@ const ReactKnob = ({
         <div
             role="slider"
             tabIndex="0"
-            className="knob-container"
+            className={`knob-container ${className}`}
             onWheel={onWheel}
             onKeyDown={onKeyDown}
             aria-valuemin={minValue}
             aria-valuemax={maxValue}
             aria-valuenow={value}>
-            <div className="knob-wheel">
+            <div className="knob-dial">
                 <div className="knob" style={style} />
                 <span className="min">{minLabel}</span>
                 <span className="max">{maxLabel}</span>

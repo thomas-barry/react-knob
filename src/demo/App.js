@@ -8,7 +8,7 @@ const App = () => {
     const [value, setValue] = useState(0)
     return (
         <div className="container">
-            <ReactKnob minValue={0} maxValue={1000} value={value} onChange={setValue} keyStepPct={10} />
+            <ReactKnob className="my-knob" minValue={0} maxValue={1000} value={value} onChange={setValue} keyStepPct={10} />
         </div>
     )
 }
