@@ -7,9 +7,17 @@ import './styles/index.scss'
 const App = () => {
     const [value, setValue] = useState(0)
     return (
-        <div className="container">
-            <ReactKnob className="my-knob" minValue={0} maxValue={1000} value={value} onChange={setValue} keyStepPct={10} />
-        </div>
+        <ReactKnob
+            className="my-knob"
+            minValue={0}
+            maxValue={1000}
+            value={value}
+            onChange={setValue}
+            keyStepPct={10}
+            minMaxLabels={false}
+            label="vol"
+            aria-label="volume"
+        />
     )
 }
 
