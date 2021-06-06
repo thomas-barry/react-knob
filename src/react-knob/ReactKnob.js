@@ -1,10 +1,8 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import Ticks from './Ticks'
 
 import './styles/knob.scss'
-
-// https://codepen.io/blucube/pen/cudAz
 
 const ReactKnob = ({
     value = 0,
@@ -20,10 +18,25 @@ const ReactKnob = ({
     minMaxLabels = true,
     ...props
 }) => {
-    const lastY = useRef()
+    const valueRef = useRef(value)
+    const wheelRef = useRef()
+    const lastTouchMoveY = useRef()
 
-    const onWheel = e =>
-        onChange?.(Math.min(Math.max(value + e.deltaY, minValue), maxValue))
+    const onWheel = e => {
+        onChange?.(Math.min(Math.max(valueRef.current + e.deltaY, minValue), maxValue))
+        e.preventDefault()
+    }
+
+    useEffect(() => {
+        valueRef.current = value
+    }, [value])
+
+    useEffect(() => {
+        wheelRef.current.addEventListener('wheel', onWheel)
+        return () => {
+            wheelRef.current.removeEventListener('wheel', onWheel)
+        }
+    }, [])
 
     const onKeyDown = ({ key, shiftKey }) => {
         if ('ArrowUp' === key) {
@@ -34,26 +47,24 @@ const ReactKnob = ({
     }
 
     const onTouchStart = e => {
-        lastY.current = e.touches[0].clientY
+        lastTouchMoveY.current = e.touches[0].clientY
     }
 
     const onTouchMove = e => {
-        const delta = lastY.current - e.touches[0].clientY
+        const delta = lastTouchMoveY.current - e.touches[0].clientY
         onChange?.(Math.min(Math.max(value + (delta * 3.5), minValue), maxValue))
-        lastY.current = e.touches[0].clientY
+        lastTouchMoveY.current = e.touches[0].clientY
     }
 
     const angle = (value / maxValue) * 270
     const style = { transform: `rotate(${angle}deg)`}
 
-    console.log('value', value)
-
     return (
         <div
+            ref={wheelRef}
             role="slider"
             tabIndex="0"
             className={`knob-container ${className}`}
-            onWheel={onWheel}
             onKeyDown={onKeyDown}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}

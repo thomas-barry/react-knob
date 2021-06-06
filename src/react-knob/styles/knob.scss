@@ -22,7 +22,7 @@
 .knob-container {
     --color-knob-dial: 24, 24, 24;
     --color-knob-light: 168, 216, 248;
-    --color-knob-inactive: 200, 200, 200;
+    --color-knob-tick: 200, 200, 200;
     --color-knob-label: 200, 200, 200;
 
     position: relative;
@@ -127,7 +127,7 @@
             content: "";
             width: 0.08em;
             height: 0.6em;
-            background-color: rgba(var(--color-knob-inactive), .5);
+            background-color: rgba(var(--color-knob-tick), .5);
             position: absolute;
             top: -1.5em;
             left: 50%;

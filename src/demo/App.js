@@ -6,6 +6,7 @@ import './styles/index.scss'
 
 const App = () => {
     const [value, setValue] = useState(0)
+
     return (
         <ReactKnob
             className="my-knob"
