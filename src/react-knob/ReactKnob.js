@@ -46,6 +46,8 @@ const ReactKnob = ({
     const angle = (value / maxValue) * 270
     const style = { transform: `rotate(${angle}deg)`}
 
+    console.log('value', value)
+
     return (
         <div
             role="slider"
