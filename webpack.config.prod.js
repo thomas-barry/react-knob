@@ -1,4 +1,5 @@
 const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
     mode: 'production',
@@ -18,13 +19,14 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
             },
         ],
     },
+    plugins: [new MiniCssExtractPlugin({ filename: 'ReactKnob.css' })],
     resolve: {
         alias: {
             'react': path.resolve(__dirname, './node_modules/react'),
@@ -32,7 +34,6 @@ module.exports = {
         }
     },
     externals: {
-        // Don't bundle react or react-dom
         react: {
             commonjs: 'react',
             commonjs2: 'react',
