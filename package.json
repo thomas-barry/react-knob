@@ -1,6 +1,6 @@
 {
   "name": "@baldwinbarry/react-knob",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React Knob",
   "author": "Thomas Barry",
   "main": "./lib/ReactKnob.js",
